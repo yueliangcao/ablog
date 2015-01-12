@@ -1,0 +1,1112 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"re",
+				"Request	*http.Request ν"
+			],
+			[
+				"a",
+				"articles	[]Article ν"
+			],
+			[
+				"art",
+				"Article	struct ʈ"
+			],
+			[
+				"i",
+				"Input	url.Values ƒ"
+			],
+			[
+				"ser",
+				"ServeJson	 ƒ"
+			],
+			[
+				"tp",
+				"TplNames	string ν"
+			],
+			[
+				"main",
+				"MainController	struct ʈ"
+			],
+			[
+				"border-boo",
+				"border-bottom-left-radius"
+			],
+			[
+				"border",
+				"border-top"
+			],
+			[
+				"m",
+				"margin"
+			],
+			[
+				"wh",
+				"width"
+			],
+			[
+				"li",
+				"link	Tag"
+			],
+			[
+				"ma",
+				"margin-bottom"
+			],
+			[
+				"s",
+				"small	Tag"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"fo",
+				"font	Tag"
+			],
+			[
+				"bo",
+				"border-width"
+			],
+			[
+				"border-to",
+				"border-top-color"
+			],
+			[
+				"border-top",
+				"border-top-style"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"read",
+				"ReadFile	[]byte, error ƒ"
+			],
+			[
+				"pa",
+				"Path	string ν"
+			],
+			[
+				"p",
+				"Println	n int, err error ƒ"
+			],
+			[
+				"pr",
+				"Println	n int, err error ƒ"
+			],
+			[
+				"imp",
+				"import	import (...) ʂ"
+			],
+			[
+				"readl",
+				"ReadLine	line []byte, isPrefix bool, err error ƒ"
+			],
+			[
+				"fuc",
+				"func main	func main {...} ʂ"
+			],
+			[
+				"d",
+				"DAB3C23C-9240-4C46-92F8-014107B7D6A9"
+			],
+			[
+				"con",
+				"Config	struct ʈ"
+			],
+			[
+				"Pr",
+				"Println	n int, err error ƒ"
+			],
+			[
+				"unm",
+				"Unmarshal	error ƒ"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.go",
+			"settings":
+			{
+				"buffer_size": 102,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "controllers/default.go",
+			"settings":
+			{
+				"buffer_size": 522,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "controllers/admin/default.go",
+			"settings":
+			{
+				"buffer_size": 533,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "controllers/article.go",
+			"settings":
+			{
+				"buffer_size": 477,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/F/Programming/Projects/Go/src/github.com/astaxie/beego/controller.go",
+			"settings":
+			{
+				"buffer_size": 15179,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/article/index.tpl",
+			"settings":
+			{
+				"buffer_size": 1803,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "package models\n\ntype User struct {\n	Usn string\n	Pwd string\n}\n\ntype Article struct {\n	Id      int\n	Title   string\n	Content string\n	Writer  string\n}\n\nvar articles = []Article{\n	Article{1, \"我的第一篇日志\", \"日志的正文\", \"yueliang\"},\n	Article{2, \"我的第二篇日志\", \"日志的正文\", \"yueliang\"}}\n\nfunc GetArticles() []Article {\n	return articles\n}\n \nfunc GetArticle() Article {\n	return articles[0]\n}\n\nfunc UpdateArticle() error {\n\n}\n",
+			"file": "models/models.go",
+			"file_size": 476,
+			"file_write_time": 130654383332874971,
+			"settings":
+			{
+				"buffer_size": 400,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "routers/router.go",
+			"settings":
+			{
+				"buffer_size": 447,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/index.tpl",
+			"settings":
+			{
+				"buffer_size": 3749,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/GoSublime/GoSublime.sublime-build",
+	"command_palette":
+	{
+		"height": 265.0,
+		"selected_items":
+		[
+			[
+				"set css",
+				"Set Syntax: CSS"
+			],
+			[
+				"set html",
+				"Set Syntax: HTML"
+			],
+			[
+				"pce",
+				"Package Control: Enable Package"
+			],
+			[
+				"pc l",
+				"Package Control: List Packages"
+			],
+			[
+				"ip",
+				"Package Control: Install Package"
+			],
+			[
+				"pc d",
+				"Package Control: Disable Package"
+			],
+			[
+				"pcip",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"pc list",
+				"Package Control: List Packages"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"isntal",
+				"Package Control: Install Package"
+			],
+			[
+				"set py",
+				"Set Syntax: Python"
+			],
+			[
+				"install package",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"set java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set json",
+				"Set Syntax: JSON"
+			],
+			[
+				"setjs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"format",
+				"Snippet: for (…) {…} (Improved Native For-Loop)"
+			],
+			[
+				"edit",
+				"GotoLastEditEnhanced: Goto next edit"
+			],
+			[
+				"ed",
+				"GotoLastEditEnhanced: Goto next edit"
+			],
+			[
+				"last",
+				"GotoLastEditEnhanced: Goto last edit"
+			],
+			[
+				"en",
+				"GotoLastEditEnhanced: Goto next edit"
+			],
+			[
+				"set jo",
+				"Set Syntax: JSON"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 371.0,
+		"history":
+		[
+			"  import urllib.request,os; pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"import urllib.request,os; pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"run",
+			"ls",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/F/Programming/Projects/Go/src/ablog",
+		"/F/Programming/Projects/Go/src/ablog/controllers",
+		"/F/Programming/Projects/Go/src/ablog/controllers/admin",
+		"/F/Programming/Projects/Go/src/ablog/views",
+		"/F/Programming/Projects/Go/src/ablog/views/admin"
+	],
+	"file_history":
+	[
+		"/F/Programming/Projects/Go/src/github.com/astaxie/beego/beego.go",
+		"/F/Programming/Projects/Go/src/ablog/static/css/style.css",
+		"/F/Programming/Projects/Go/src/github.com/astaxie/beego/context/context.go",
+		"/F/Programming/Projects/Go/src/github.com/astaxie/beego/controller.go",
+		"/F/Programming/Projects/Go/src/ablog/views/article.tpl",
+		"/D/Software/Programming/Sublime Text 3/Data/Packages/Emmet/Default (Windows).sublime-keymap",
+		"/F/Programming/Projects/Go/src/ablog/routers/router.go",
+		"/F/Programming/Projects/Go/src/ablog/controllers/default.go",
+		"/F/Programming/Projects/Go/src/ablog/controllers/login.go",
+		"/F/Archer/Documents/workspace_go/src/github.com/astaxie/beego/beego.go",
+		"/D/SoftWare/Sublime Text 3/Data/Packages/User/Package Control.sublime-settings",
+		"/D/SoftWare/Sublime Text 3/Data/Packages/Package Control/Package Control.sublime-settings",
+		"/F/Archer/Documents/workspace_go/src/ablog/static/js/comm.js",
+		"/D/SoftWare/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings",
+		"/D/SoftWare/privoxy-3.0.22/config.txt",
+		"/F/Archer/Documents/workspace_go/src/ablog/main.go",
+		"/D/SoftWare/Sublime Text 3/Data/Packages/Default/Preferences.sublime-settings",
+		"/D/SoftWare/Sublime Text 3/Data/Packages/BracketHighlighter/bh_core.sublime-settings",
+		"/D/SoftWare/Sublime Text 3/Data/Packages/GoSublime/GoSublime.sublime-settings",
+		"/D/SoftWare/Sublime Text 3/Data/Packages/User/GoSublime.sublime-settings",
+		"/D/SoftWare/Sublime Text 3/Data/Packages/GoSublime/CHANGELOG.md",
+		"/F/Archer/Documents/workspace_go/src/ablog/.sublime-project",
+		"/F/Archer/Documents/workspace_go/src/ablog/views/index.tpl",
+		"/F/Archer/Documents/workspace_go/src/ablog/static/fonts/glyphicons-halflings-regular.svg",
+		"/F/Archer/Documents/workspace_go/src/ablog/views/login.tpl",
+		"/F/Archer/Documents/workspace_go/src/ablog/controllers/login.go",
+		"/F/Archer/Documents/workspace_go/src/ablog/controllers/default.go",
+		"/F/Archer/Documents/workspace_go/src/ablog/routers/router.go",
+		"/D/SoftWare/Go/src/pkg/net/http/httptest/server.go",
+		"/D/SoftWare/Go/src/pkg/net/http/httputil/reverseproxy.go",
+		"/D/SoftWare/Go/src/pkg/time/tick.go",
+		"/D/SoftWare/Go/src/pkg/time/sleep.go",
+		"/D/SoftWare/Go/src/pkg/io/io.go",
+		"/D/SoftWare/Go/src/pkg/io/pipe.go",
+		"/D/SoftWare/Go/src/pkg/builtin/builtin.go",
+		"/F/Archer/Documents/workspace_go/src/aweb/main.go",
+		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Packages/GoSublime/9o.md",
+		"/D/SoftWare/Go/src/pkg/net/http/client.go",
+		"/D/SoftWare/Go/src/pkg/net/cgo_linux.go",
+		"/D/SoftWare/Go/src/pkg/crypto/crypto.go",
+		"/D/SoftWare/Go/src/pkg/crypto/tls/testdata/Client-TLSv10-ECDHE-ECDSA-AES",
+		"/D/SoftWare/Go/src/pkg/crypto/tls/testdata/Client-TLSv10-ECDHE-RSA-AES",
+		"/D/SoftWare/Go/src/pkg/flag/flag.go",
+		"/D/SoftWare/Go/src/pkg/math/mod_amd64.s",
+		"/D/SoftWare/Go/src/pkg/debug/macho/testdata/gcc-amd64-darwin-exec-debug",
+		"/D/SoftWare/Go/src/pkg/image/draw/bench_test.go",
+		"/D/SoftWare/Go/src/pkg/archive/tar/testdata/writer-big-long.tar",
+		"/D/SoftWare/Go/src/pkg/archive/tar/testdata/writer-big.tar",
+		"/F/Archer/Documents/workspace_go/src/aweb/web.cfg",
+		"/D/SoftWare/Go/src/pkg/debug/elf/testdata/hello-world-core.gz",
+		"/D/SoftWare/Go/src/pkg/runtime/os_windows_amd64.c",
+		"/D/SoftWare/Go/src/pkg/net/iprawsock_plan9.go",
+		"/D/SoftWare/Go/src/pkg/image/names.go",
+		"/D/SoftWare/Go/src/pkg/archive/tar/testdata/nil-uid.tar",
+		"/D/SoftWare/Go/src/pkg/net/http/testdata/index.html",
+		"/D/SoftWare/Go/src/pkg/runtime/hashmap.goc",
+		"/F/Archer/Documents/workspace_go/src/aweb/www/proxy/apac",
+		"/F/Archer/Documents/workspace_go/src/aweb/www/index.html",
+		"/F/Downloads/chrome/SwitchyPac (1).pac",
+		"/D/SoftWare/Go/src/pkg/io/ioutil/ioutil.go",
+		"/D/SoftWare/Go/src/pkg/net/http/fs.go",
+		"/D/SoftWare/Go/src/pkg/net/http/server.go",
+		"/F/Archer/Desktop/pac.js",
+		"/D/SoftWare/Chrome/User Data/Default/Extensions/heehjpdocpefckjobfgnfdbhoebhphkf/2.8.5_0/js/background/services/conflictDetector.js",
+		"/D/SoftWare/Chrome/User Data/Default/Extensions/heehjpdocpefckjobfgnfdbhoebhphkf/2.8.5_0/js/background/background.js",
+		"/D/SoftWare/Chrome/User Data/Default/Extensions/heehjpdocpefckjobfgnfdbhoebhphkf/2.8.5_0/js/background/module.js",
+		"/D/SoftWare/Chrome/User Data/Default/Extensions/heehjpdocpefckjobfgnfdbhoebhphkf/2.8.5_0/js/background/services/EasySocket.js",
+		"/D/SoftWare/Chrome/User Data/Default/Extensions/heehjpdocpefckjobfgnfdbhoebhphkf/2.8.5_0/js/background/services/server.js",
+		"/D/SoftWare/Chrome/User Data/Default/Extensions/heehjpdocpefckjobfgnfdbhoebhphkf/2.8.5_0/js/background/services/proxyManager.js",
+		"/D/SoftWare/Chrome/User Data/Default/Extensions/heehjpdocpefckjobfgnfdbhoebhphkf/2.8.5_0/js/popup/controllers/AddController.js",
+		"/D/SoftWare/Chrome/User Data/Default/Extensions/heehjpdocpefckjobfgnfdbhoebhphkf/2.8.5_0/js/background/services/userManager.js",
+		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Packages/JsFormat/Default (Windows).sublime-keymap",
+		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Packages/JsFormat/JsFormat.sublime-settings",
+		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Packages/User/JsFormat.sublime-settings",
+		"/F/Downloads/chrome/SwitchyPac.pac",
+		"/F/Archer/Documents/workspace_go/src/aproxy/main.go",
+		"/D/SoftWare/Python/Scripts/config.json",
+		"/F/Archer/Documents/workspace_go/src/aproxy/config.go",
+		"/F/Archer/Documents/workspace_go/src/aproxy/config.json",
+		"/F/Archer/Documents/workspace_go/src/aproxy/pipe.go",
+		"/D/SoftWare/Go/src/pkg/bufio/bufio.go",
+		"/F/Archer/Documents/workspace_go/src/aproxy/.gitignore",
+		"/D/SoftWare/Go/src/pkg/net/url/url.go",
+		"/D/SoftWare/Go/src/pkg/net/http/request.go",
+		"/D/SoftWare/Go/src/pkg/net/net.go",
+		"/D/SoftWare/Go/src/pkg/net/pipe.go",
+		"/D/SoftWare/Go/src/pkg/net/textproto/reader.go",
+		"/D/SoftWare/Go/src/pkg/net/textproto/textproto.go",
+		"/D/SoftWare/Go/src/pkg/net/tcpsock_posix.go",
+		"/D/SoftWare/Go/src/pkg/net/http/transport.go",
+		"/D/SoftWare/Go/src/pkg/os/env.go",
+		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Installed Packages/GotoLastEditEnhanced/readme.md",
+		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Installed Packages/Package Control.sublime-package",
+		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/main.go",
+		"/F/Archer/Documents/workspace_go/src/diy/config/config.go",
+		"/F/Archer/Documents/workspace_go/src/diy/client.go",
+		"/F/Archer/Documents/workspace_go/src/diy/server.go",
+		"/F/Archer/Documents/workspace_go/src/github.com/astaxie/beego/example/beeapi/controllers/default.go",
+		"/F/Archer/Documents/workspace_go/src/github.com/astaxie/beego/example/beeapi/models/object.go",
+		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/controllers/default.go",
+		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/views/index.tpl",
+		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/routers/router.go",
+		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/conf/app.conf",
+		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/tests/default_test.go",
+		"/D/SoftWare/Git/etc/gitconfig",
+		"/F/Archer/Documents/workspace_go/src/diy/client.cfg",
+		"/D/SoftWare/Go/src/pkg/fmt/print.go",
+		"/D/SoftWare/Go/src/pkg/syscall/syscall.go",
+		"/D/SoftWare/Go/src/pkg/os/file.go",
+		"/D/SoftWare/Go/src/pkg/os/file_plan9.go",
+		"/D/SoftWare/Go/src/pkg/runtime/extern.go",
+		"/D/SoftWare/Go/src/pkg/encoding/json/decode.go",
+		"/F/Archer/Documents/workspace_go/src/diy/server.cfg",
+		"/E/Work/HRS/Project/src/trunk/HRS.Web/UI/app/scripts/Jquery.download.js",
+		"/F/Web_Helpers/index.html",
+		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Packages/GoSublime/CHANGELOG.md",
+		"/F/DataTables/DataTables-1_9/media/js/jquery.dataTables.js",
+		"/C/Windows/Microsoft.NET/Framework64/v4.0.30319/Config/web.config",
+		"/F/Archer/Documents/workspace_go/src/diy/local.go",
+		"/F/Downloads/chrome/A203525501-20458/DataTables-1.9.4/examples/ajax/sources/arrays.txt",
+		"/F/Downloads/chrome/A203525501-20458/DataTables-1.9.4/examples/server_side/scripts/post.php",
+		"/F/Downloads/chrome/A203525501-20458/DataTables-1.9.4/examples/ajax/sources/custom_prop.txt",
+		"/F/Downloads/chrome/A203525501-20458/DataTables-1.9.4/examples/ajax/sources/objects_subarrays.txt",
+		"/F/Downloads/chrome/A203525501-20458/DataTables-1.9.4/examples/ajax/sources/objects.txt",
+		"/F/Downloads/chrome/A203525501-20458/DataTables-1.9.4/examples/ajax/sources/arrays_subobjects.txt",
+		"/F/Downloads/chrome/A203525501-20458/DataTables-1.9.4/examples/ajax/sources/array_only.txt",
+		"/F/Archer/Documents/workspace_go/src/diy/local.cfg",
+		"/F/Archer/Documents/workspace_go/src/diy/config.json"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"c",
+			"GetArticle()",
+			"Input",
+			"forward-socks5",
+			"# forward-socks5",
+			"forward-socks5",
+			"span",
+			"div",
+			".page-sidebar",
+			"text-align: right",
+			"float: right",
+			"nav",
+			"\\",
+			"Serve(",
+			"Serve",
+			"tests",
+			"rawResponse",
+			"serve",
+			"http.serve",
+			"func serve",
+			"serve",
+			"\\",
+			"\\t",
+			"\\n",
+			"chrome.proxy",
+			"Close",
+			"hijack()",
+			"hijack",
+			"hijacked",
+			"WriteHeader",
+			"NotFoundHandler",
+			"ServeHTTP",
+			"finishRequest",
+			"hijackedv",
+			"hijacked",
+			"finishRequest",
+			"ServeHTTP",
+			"Handler",
+			"s.handler(",
+			"ser.handler(",
+			"svr.handler(",
+			"handler(",
+			"handler",
+			"newConn",
+			"ListenAndServe",
+			"tcpKeepAliveListener",
+			"ListenAndServe",
+			"Serve",
+			"ListenAndServe",
+			"newTextprotoReader",
+			"parseRequestLine",
+			"newTextprotoReader",
+			"fill",
+			"newConn",
+			"ListenAndServe",
+			"listen",
+			"ReadRequest",
+			"listen",
+			"ReadRequest",
+			"Stdin",
+			"   jQuery.download = function (url, data, method) {\n// »ñÈ¡urlºÍdata\nif (url && data) {\n    // data ÊÇ string »òÕß array/object\n    data = typeof data == 'string' ? data : jQuery.param(data);\n    // °Ñ²ÎÊý×é×°³É formµÄ  input\n    var inputs = '';\n    jQuery.each(data.split('&'), function () {\nvar pair = this.split('=');\ninputs += '<input type=\"hidden\" name=\"' + pair[0] + '\" value=\"' + pair[1] + '\" />';\n    });\n    // request·¢ËÍÇëÇó\n    jQuery('<form action=\"' + url + '\" method=\"' + (method || 'post') + '\">' + inputs + '</form>')\n.appendTo('body').submit().remove();\n};\n    };",
+			"                   \"",
+			"runAllManagedModulesForAllRequests",
+			"htdocs",
+			"zentao",
+			"欢迎使用禅道集成运行环境！",
+			"欢迎使用禅道集成运行环境",
+			"zentao",
+			"Decode",
+			"398406",
+			"88B2C14111105289",
+			"88B2C14111105291",
+			"398446",
+			"398406",
+			"\\",
+			"gocode",
+			"ctrl+/"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\\\\",
+			"",
+			"/"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 102,
+						"regions":
+						{
+							"bookmarks":
+							{
+								"flags": 144,
+								"icon": "bookmark",
+								"regions":
+								[
+								],
+								"scope": "bookmarks"
+							}
+						},
+						"selection":
+						[
+							[
+								102,
+								102
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "controllers/default.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 522,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								522
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "controllers/admin/default.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 533,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								192,
+								192
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "controllers/article.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 477,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								446,
+								459
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/F/Programming/Projects/Go/src/github.com/astaxie/beego/controller.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15179,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1648,
+								1648
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 691.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/article/index.tpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1803,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								655,
+								655
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "models/models.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 400,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								147,
+								147
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "routers/router.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 447,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								77,
+								77
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "views/index.tpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3749,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								3749
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.9o://C:\\Users\\yueliangcao\\AppData\\Roaming\\Sublime Text 3\\Packages\\GoSublime":
+	{
+		"height": 199.0
+	},
+	"output.9o://D:\\SoftWare\\Sublime Text 3\\Data\\Packages\\GoSublime":
+	{
+		"height": 100.0
+	},
+	"output.9o://F:\\Archer\\Documents\\workspace_go\\diy":
+	{
+		"height": 197.0
+	},
+	"output.9o://F:\\Archer\\Documents\\workspace_go\\src\\ablog":
+	{
+		"height": 294.0
+	},
+	"output.9o://F:\\Archer\\Documents\\workspace_go\\src\\ablog\\controllers":
+	{
+		"height": 100.0
+	},
+	"output.9o://F:\\Archer\\Documents\\workspace_go\\src\\ablog\\routers":
+	{
+		"height": 307.0
+	},
+	"output.9o://F:\\Archer\\Documents\\workspace_go\\src\\aproxy":
+	{
+		"height": 100.0
+	},
+	"output.9o://F:\\Archer\\Documents\\workspace_go\\src\\aweb":
+	{
+		"height": 263.0
+	},
+	"output.9o://F:\\Archer\\Documents\\workspace_go\\src\\diy":
+	{
+		"height": 248.0
+	},
+	"output.9o://F:\\Archer\\Documents\\workspace_go\\src\\diy\\config":
+	{
+		"height": 180.0
+	},
+	"output.9o://F:\\Programming\\Projects\\Go\\src\\ablog":
+	{
+		"height": 118.0
+	},
+	"output.9o://F:\\Programming\\Projects\\Go\\src\\ablog\\controllers":
+	{
+		"height": 118.0
+	},
+	"output.9o://F:\\Programming\\Projects\\Go\\src\\ablog\\models":
+	{
+		"height": 118.0
+	},
+	"output.9o://F:\\Programming\\Projects\\Go\\src\\ablog\\routers":
+	{
+		"height": 118.0
+	},
+	"output.GoSublime-main-output":
+	{
+		"height": 100.0
+	},
+	"output.GoSublime-output":
+	{
+		"height": 506.0
+	},
+	"output.GsDoc-output-output":
+	{
+		"height": 291.0
+	},
+	"output.MarGo-output":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": ".sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"views/inde",
+				"views\\index.tpl"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"F:\\Archer\\Documents\\workspace_go\\src\\ablog\\.sublime-project.sublime-workspace"
+			]
+		],
+		"width": 621.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 230.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
