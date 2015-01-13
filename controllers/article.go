@@ -19,7 +19,7 @@ func (c *ArticleController) Edit() {
 		c.TplNames = "article/edit.tpl"
 		c.Data["article"] = models.GetArticle()
 	} else if c.Ctx.Request.Method == "POST" {
-		models.UpdateArticle()
+
 	} else {
 	}
 }

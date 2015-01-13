@@ -1,15 +1,32 @@
 package models
 
+//用户
 type User struct {
+	Id  int
 	Usn string
 	Pwd string
 }
 
+//文章
 type Article struct {
 	Id      int
 	Title   string
 	Content string
 	Writer  string
+}
+
+//标签
+type Tag struct {
+	Id    int
+	Name  string `orm:"size(20);index"`
+	Count int
+}
+
+//文章标签关联
+type ArticleTag struct {
+	Id        int
+	ArticleId int
+	TagId     int
 }
 
 var articles = []Article{
@@ -22,8 +39,4 @@ func GetArticles() []Article {
 
 func GetArticle() Article {
 	return articles[0]
-}
-
-func UpdateArticle() error {
-
 }
