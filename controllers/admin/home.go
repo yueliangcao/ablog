@@ -13,6 +13,10 @@ type HomeController struct {
 func (c *HomeController) Index() {
 	c.Layout = "admin/_layout.html"
 	c.TplNames = "admin/home_index.html"
+
+	if user := c.GetSession("user"); user == nil {
+		c.Redirect("/admin/login", 301)
+	}
 }
 
 func (c *HomeController) Login() {
@@ -35,6 +39,7 @@ func (c *HomeController) Login() {
 		} else if user.Pwd != pwd {
 			c.Data["errmsg"] = "密码有误"
 		} else {
+			c.SetSession("user", user)
 			c.Redirect("/admin", 301)
 		}
 	}

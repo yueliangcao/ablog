@@ -74,6 +74,20 @@ func GetOneUserByUsn(usn string) (*User, error) {
 	return user, nil
 }
 
+func AddArticle(article *Article) (err error) {
+	dbf(func(db *sql.DB) {
+		_, err = db.Exec("insert into t_article(title,content,writer) values(?,?,?)", &article.Title, &article.Content, &article.Writer)
+	})
+
+	return
+}
+func UpdateArticle(article *Article) (err error) {
+	dbf(func(db *sql.DB) {
+		_, err = db.Exec("update t_article set title = ?,content = ?,writer = ? where id = ?", &article.Title, &article.Content, &article.Writer, &article.Id)
+	})
+
+	return
+}
 func GetAllArticle() (articles []Article, err error) {
 	var rows *sql.Rows
 
