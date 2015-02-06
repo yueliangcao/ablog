@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "ablog/routers"
 	"github.com/astaxie/beego"
+	_ "github.com/yueliangcao/ablog/routers"
 )
 
 func main() {

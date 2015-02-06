@@ -1,8 +1,9 @@
 package controllers
 
 import (
-	"ablog/models"
+	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/yueliangcao/ablog/models"
 )
 
 type MainController struct {
@@ -10,8 +11,14 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
+	var err error
 	c.TplNames = "index.tpl"
-	c.Data["articles"] = models.GetArticles()
+	c.Data["articles"], err = models.GetAllArticle()
+	fmt.Print(c.Data["articles"])
+
+	if err != nil {
+		beego.Warning(err.Error())
+	}
 }
 
 func (c *MainController) Login() {

@@ -1,8 +1,8 @@
 package admin
 
 import (
-	_ "ablog/models"
 	"github.com/astaxie/beego"
+	_ "github.com/yueliangcao/ablog/models"
 )
 
 type ArticleController struct {

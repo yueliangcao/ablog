@@ -1,9 +1,9 @@
 package admin
 
 import (
-	_ "ablog/models"
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
+	_ "github.com/astaxie/beego/orm"
+	_ "github.com/yueliangcao/ablog/models"
 )
 
 type UserController struct {

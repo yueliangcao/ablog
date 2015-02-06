@@ -1,15 +1,15 @@
 package routers
 
 import (
-	"ablog/controllers"
-	"ablog/controllers/admin"
 	"github.com/astaxie/beego"
+	"github.com/yueliangcao/ablog/controllers"
+	"github.com/yueliangcao/ablog/controllers/admin"
 )
 
 func init() {
 	beego.Router("/", &controllers.MainController{})
 	// beego.Router("/login", &controllers.MainController{}, "post:Login")
-	// beego.Router("/article/:id:int", &controllers.ArticleController{})
+	beego.Router("/article/:id:int", &controllers.ArticleController{}, "*:Index")
 	// beego.Router("/article/del/:id:int", &controllers.ArticleController{}, "get:Del")
 	// beego.Router("/article/edit/:id:int", &controllers.ArticleController{}, "*:Edit")
 	beego.Router("/admin", &admin.HomeController{}, "*:Index")
