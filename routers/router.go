@@ -15,7 +15,7 @@ func init() {
 	beego.Router("/admin", &admin.HomeController{}, "*:Index")
 	beego.Router("/admin/login", &admin.HomeController{}, "*:Login")
 
-	beego.Router("/admin/article", &admin.ArticleController{}, "*:Index")
+	beego.Router("/admin/article/list", &admin.ArticleController{}, "*:List")
 	beego.Router("/admin/article/add", &admin.ArticleController{}, "*:Add")
 	beego.Router("/admin/article/del", &admin.ArticleController{}, "*:Del")
 	beego.Router("/admin/article/edit", &admin.ArticleController{}, "*:Edit")

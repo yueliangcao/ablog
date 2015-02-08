@@ -4,48 +4,84 @@
 		"selected_items":
 		[
 			[
-				"p",
-				"Post	 ƒ"
+				"getint",
+				"GetInt	int, error ƒ"
 			],
 			[
-				"User",
-				"user	*models.User ν"
+				"sp",
+				"Sprintf	string ƒ"
 			],
 			[
-				"b",
-				"BeeLogger	struct ʈ"
+				"f",
+				"Fprintf	n int, err error ƒ"
 			],
 			[
-				"log",
-				"Log	*logs.BeeLogger ν"
+				"fp",
+				"Fprintf	n int, err error ƒ"
 			],
 			[
-				"a",
-				"article	*Article ν"
+				"ti",
+				"title	string ν"
 			],
 			[
-				"ar",
-				"article	*Article ν"
+				"tag",
+				"tag	*Tag ν"
 			],
 			[
 				"art",
-				"articles	[]Article ν"
-			],
-			[
-				"w",
-				"Warning	 ƒ"
+				"article	*Article ν"
 			],
 			[
 				"row",
 				"Rows	struct ʈ"
 			],
 			[
-				"q",
-				"Query	*sql.Rows, error ƒ"
+				"s",
+				"searchtype	string ν"
+			],
+			[
+				"gets",
+				"GetString	string ƒ"
+			],
+			[
+				"get",
+				"GetAllArticle	articles []models.Article, err error ƒ"
+			],
+			[
+				"coun",
+				"count2	int ν"
+			],
+			[
+				"cou",
+				"count2	int ν"
+			],
+			[
+				"err",
+				"Errors	[]*validation.ValidationError ν"
+			],
+			[
+				"er",
+				"ErrorMap	map[string]*validation.ValidationError ƒ"
+			],
+			[
+				"ce",
+				"CreateOn	time.Time ν"
+			],
+			[
+				"fun",
+				"func (*BaseController)	func (...) {...} ʂ"
+			],
+			[
+				"ar",
+				"article	*Article ν"
 			],
 			[
 				"re",
 				"Request	*http.Request ν"
+			],
+			[
+				"a",
+				"articles	[]Article ν"
 			],
 			[
 				"i",
@@ -88,10 +124,6 @@
 				"margin-bottom"
 			],
 			[
-				"s",
-				"small	Tag"
-			],
-			[
 				"font",
 				"font-size"
 			],
@@ -120,6 +152,10 @@
 				"width"
 			],
 			[
+				"w",
+				"width"
+			],
+			[
 				"ba",
 				"background-color"
 			],
@@ -130,6 +166,10 @@
 			[
 				"pa",
 				"Path	string ν"
+			],
+			[
+				"p",
+				"Println	n int, err error ƒ"
 			],
 			[
 				"pr",
@@ -168,45 +208,26 @@
 	"buffers":
 	[
 		{
-			"file": "models/models.go",
+			"file": "controllers/admin/article.go",
 			"settings":
 			{
-				"buffer_size": 2054,
+				"buffer_size": 2309,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "package admin\n\nimport (\n	\"github.com/astaxie/beego\"\n	\"github.com/yueliangcao/ablog/logs\"\n	\"github.com/yueliangcao/ablog/models\"\n)\n\ntype HomeController struct {\n	beego.Controller\n}\n\nfunc (c *HomeController) Index() {\n	c.Layout = \"admin/_layout.html\"\n	c.TplNames = \"admin/home_index.html\"\n}\n\nfunc (c *HomeController) Login() {\n	c.TplNames = \"admin/home_login.html\"\n\n	if c.Ctx.Request.Method == \"GET\" {\n\n	} else {\n		usn := c.GetString(\"usn\")\n		pwd := c.GetString(\"pwd\")\n		\n		user, err := models.GetOneUserByUsn(usn)\n		if err != nil {\n			logs.Log().Debug(\"GetOneUserByUsn\", err.Error())\n			return\n		}\n\n		if user == nil {\n			c.Data[\"errmsg\"] = \"不存在该用户\"\n		} else if user.Pwd != pwd {\n			c.Data[\"errmsg\"] = \"密码有误\"\n		} else {\n			c.Redirect(\"/admin\", 301)\n		}\n	}\n\n	return\n}\n\nfunc (c *HomeController) Setting() {\n	c.Layout = \"admin/_layout.html\"\n	c.TplNames = \"admin/home_setting.html\"\n}\n",
-			"file": "controllers/admin/home.go",
-			"file_size": 944,
-			"file_write_time": 130676665149748674,
+			"file": "views/admin/article_add.html",
 			"settings":
 			{
-				"buffer_size": 878,
+				"buffer_size": 3452,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "controllers/default.go",
+			"file": "views/admin/article_list.html",
 			"settings":
 			{
-				"buffer_size": 655,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "views/admin/home_login.html",
-			"settings":
-			{
-				"buffer_size": 1143,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "routers/router.go",
-			"settings":
-			{
-				"buffer_size": 1357,
+				"buffer_size": 3608,
 				"line_ending": "Windows"
 			}
 		},
@@ -219,19 +240,43 @@
 			}
 		},
 		{
-			"file": "controllers/article.go",
+			"file": "controllers/default.go",
 			"settings":
 			{
-				"buffer_size": 897,
+				"buffer_size": 673,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Software/go/src/database/sql/sql.go",
+			"file": "models/models.go",
 			"settings":
 			{
-				"buffer_size": 45899,
-				"line_ending": "Unix"
+				"buffer_size": 4444,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/F/Programming/Projects/Go/src/github.com/astaxie/beego/orm/orm.go",
+			"settings":
+			{
+				"buffer_size": 12671,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/F/Programming/Projects/Go/src/github.com/astaxie/beego/orm/db_alias.go",
+			"settings":
+			{
+				"buffer_size": 6831,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/F/Programming/Projects/Go/src/github.com/astaxie/beego/orm/db.go",
+			"settings":
+			{
+				"buffer_size": 39151,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -379,36 +424,56 @@
 	},
 	"expanded_folders":
 	[
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/controllers",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/controllers/admin",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/views"
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/controllers",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/controllers/admin",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/logs",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/models",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/routers",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/static",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/views/admin"
 	],
 	"file_history":
 	[
-		"/D/Software/Sublime Text 3/Data/Packages/GoSublime/USAGE.md",
-		"/E/Archer/Documents/Go/src/github.com/astaxie/beego/controller.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/logs/log.go",
-		"/E/Archer/Documents/Go/src/github.com/astaxie/beego/logs/log.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/controllers/admin/user.go",
-		"/D/Software/go/src/builtin/builtin.go",
-		"/D/Software/go/src/database/sql/convert.go",
-		"/D/Software/go/src/database/sql/sql.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/main.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/controllers/article.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/controllers/default.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/controllers/admin/article.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/controllers/admin/home.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/controllers/admin/tag.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/routers/router.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/tests/default_test.go",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/views/admin/_layout.html",
-		"/E/Archer/Documents/Go/src/github.com/yueliangcao/ablog/static/admin/css/admin.css",
+		"/F/Programming/Projects/Go/src/github.com/astaxie/beego/orm/types.go",
+		"/F/Programming/Projects/Go/src/github.com/astaxie/beego/orm/db_mysql.go",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/routers/router.go",
+		"/F/Programming/Projects/Go/src/github.com/astaxie/beego/validation/validation.go",
+		"/D/Software/Programming/go/src/time/zoneinfo.go",
+		"/D/Software/Programming/go/src/time/time.go",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/views/admin/article_list.html",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/main.go",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/views/index.tpl",
+		"/D/Software/Programming/go/src/time/zoneinfo_plan9.go",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/views/admin/article_add.html",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/models/models.go",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/controllers/admin/base.go",
+		"/F/Programming/Projects/Go/src/github.com/astaxie/beego/controller.go",
+		"/F/Programming/Projects/Go/src/github.com/yueliangcao/ablog/controllers/admin/article.go",
+		"/F/Programming/Projects/Go/src/ablog/models/models.go",
+		"/F/Programming/Projects/Go/src/ablog/controllers/admin/home.go",
+		"/F/Programming/Projects/Go/src/ablog/controllers/admin/article.go",
+		"/F/Programming/Projects/Go/src/ablog/controllers/admin/tag.go",
 		"/F/Programming/Projects/Go/src/ablog/routers/router.go",
+		"/F/Programming/Projects/Go/src/ablog/controllers/admin/user.go",
+		"/F/Programming/Projects/Go/src/github.com/lisijie/goblog/models/base.go",
+		"/F/Programming/Projects/Go/src/ablog/controllers/article.go",
+		"/F/Programming/Projects/Go/src/ablog/views/admin/_layout.html",
+		"/F/Programming/Projects/Go/src/ablog/views/admin/article_index.html",
+		"/F/Programming/Projects/Go/src/ablog/controllers/admin/Home.go",
+		"/F/Programming/Projects/Go/src/ablog/.gitignore",
+		"/F/Programming/Projects/Go/src/ablog/views/admin/article_edit.html",
+		"/F/Programming/Projects/Go/src/ablog/views/admin/article_add.html",
+		"/F/Programming/Projects/Go/src/ablog/views/admin/article_list.html",
+		"/F/Programming/Projects/Go/src/github.com/lisijie/goblog/views/admin/account_login.html",
+		"/F/Programming/Projects/Go/src/github.com/lisijie/goblog/views/admin/account_profile.html",
+		"/F/Programming/Projects/Go/src/ablog/static/js/comm.js",
+		"/F/Programming/Projects/Go/src/github.com/lisijie/goblog/static/ueditor/dialogs/attachment/callbacks.js",
+		"/F/Programming/Projects/Go/src/ablog/views/admin/account_profile.html",
+		"/F/Programming/Projects/Go/src/github.com/lisijie/goblog/controllers/admin/account.go",
+		"/F/Programming/Projects/Go/src/ablog/conf/app.conf",
 		"/F/Programming/Projects/Go/src/ablog/views/index.tpl",
 		"/F/Programming/Projects/Go/src/ablog/views/article/index.tpl",
-		"/F/Programming/Projects/Go/src/github.com/astaxie/beego/controller.go",
-		"/F/Programming/Projects/Go/src/ablog/controllers/article.go",
 		"/F/Programming/Projects/Go/src/ablog/controllers/admin/default.go",
 		"/F/Programming/Projects/Go/src/ablog/controllers/default.go",
 		"/F/Programming/Projects/Go/src/ablog/main.go",
@@ -497,27 +562,11 @@
 		"/D/SoftWare/Go/src/pkg/net/pipe.go",
 		"/D/SoftWare/Go/src/pkg/net/textproto/reader.go",
 		"/D/SoftWare/Go/src/pkg/net/textproto/textproto.go",
-		"/D/SoftWare/Go/src/pkg/net/tcpsock_posix.go",
-		"/D/SoftWare/Go/src/pkg/net/http/transport.go",
-		"/D/SoftWare/Go/src/pkg/os/env.go",
-		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Installed Packages/GotoLastEditEnhanced/readme.md",
-		"/C/Users/yueliangcao/AppData/Roaming/Sublime Text 3/Installed Packages/Package Control.sublime-package",
-		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/main.go",
-		"/F/Archer/Documents/workspace_go/src/diy/config/config.go",
-		"/F/Archer/Documents/workspace_go/src/diy/client.go",
-		"/F/Archer/Documents/workspace_go/src/diy/server.go",
-		"/F/Archer/Documents/workspace_go/src/github.com/astaxie/beego/example/beeapi/controllers/default.go",
-		"/F/Archer/Documents/workspace_go/src/github.com/astaxie/beego/example/beeapi/models/object.go",
-		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/controllers/default.go",
-		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/views/index.tpl",
-		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/routers/router.go",
-		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/conf/app.conf",
-		"/F/Archer/Documents/workspace_go/src/github.com/onebeegoweb/tests/default_test.go",
-		"/D/SoftWare/Git/etc/gitconfig"
+		"/D/SoftWare/Go/src/pkg/net/tcpsock_posix.go"
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -532,13 +581,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"password",
-			"account",
-			"You have an error in your SQL syntax",
-			"rows",
-			"Open(",
-			"Query",
-			"ablog/",
+			") Query (",
+			") Query ()",
+			"Query()",
+			"Query(",
+			"Filter",
+			"select (",
+			"select(",
+			"TableQuote",
+			"update",
+			"collectValues",
+			"Update",
+			"Filter",
+			"LoadLocation",
+			"message",
+			"/static/bootstrap/css",
+			"tpl",
 			"c",
 			"GetArticle()",
 			"Input",
@@ -623,7 +681,7 @@
 		"regex": false,
 		"replace_history":
 		[
-			"github.com/yueliangcao/ablog/",
+			"/static/admin/css",
 			"\\\\",
 			"",
 			"/"
@@ -637,24 +695,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "models/models.go",
+					"file": "controllers/admin/article.go",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2054,
+						"buffer_size": 2309,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1156,
-								1156
+								745,
+								745
 							]
 						],
 						"settings":
@@ -663,85 +721,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1140.0,
+						"translation.y": 702.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "controllers/admin/home.go",
+					"file": "views/admin/article_add.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 878,
+						"buffer_size": 3452,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								410,
-								410
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 57.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "controllers/default.go",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 655,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								155,
-								155
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "views/admin/home_login.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1143,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								555,
-								561
+								3220,
+								3220
 							]
 						],
 						"settings":
@@ -750,43 +750,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 114.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "routers/router.go",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1357,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								664,
-								664
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 54.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 2,
+					"file": "views/admin/article_list.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3608,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1966,
+								1966
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "main.go",
 					"semi_transient": false,
 					"settings":
@@ -810,24 +810,53 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "controllers/article.go",
+					"buffer": 4,
+					"file": "controllers/default.go",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 897,
+						"buffer_size": 673,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								530,
-								530
+								330,
+								330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "models/models.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4444,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3425,
+								3425
 							]
 						],
 						"settings":
@@ -836,27 +865,89 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 756.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/F/Programming/Projects/Go/src/github.com/astaxie/beego/orm/orm.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12671,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1734,
+								1734
+							],
+							[
+								2127,
+								2127
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1339.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/F/Programming/Projects/Go/src/github.com/astaxie/beego/orm/db_alias.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6831,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1774,
+								1774
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1062.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "/D/Software/go/src/database/sql/sql.go",
+					"buffer": 8,
+					"file": "/F/Programming/Projects/Go/src/github.com/astaxie/beego/orm/db.go",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 45899,
+						"buffer_size": 39151,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								504,
-								504
+								38898,
+								38905
 							]
 						],
 						"settings":
@@ -865,10 +956,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 798.0,
+						"translation.y": 29362.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -876,7 +967,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -913,26 +1004,6 @@
 	{
 		"height": 100.0
 	},
-	"output.9o://E:\\Archer\\Documents\\Go\\src\\github.com\\yueliangcao\\ablog":
-	{
-		"height": 263.0
-	},
-	"output.9o://E:\\Archer\\Documents\\Go\\src\\github.com\\yueliangcao\\ablog\\controllers":
-	{
-		"height": 239.0
-	},
-	"output.9o://E:\\Archer\\Documents\\Go\\src\\github.com\\yueliangcao\\ablog\\controllers\\admin":
-	{
-		"height": 124.0
-	},
-	"output.9o://E:\\Archer\\Documents\\Go\\src\\github.com\\yueliangcao\\ablog\\logs":
-	{
-		"height": 124.0
-	},
-	"output.9o://E:\\Archer\\Documents\\Go\\src\\github.com\\yueliangcao\\ablog\\models":
-	{
-		"height": 124.0
-	},
 	"output.9o://F:\\Archer\\Documents\\workspace_go\\diy":
 	{
 		"height": 197.0
@@ -967,7 +1038,7 @@
 	},
 	"output.9o://F:\\Programming\\Projects\\Go\\src\\ablog":
 	{
-		"height": 118.0
+		"height": 415.0
 	},
 	"output.9o://F:\\Programming\\Projects\\Go\\src\\ablog\\controllers":
 	{
@@ -978,6 +1049,18 @@
 		"height": 118.0
 	},
 	"output.9o://F:\\Programming\\Projects\\Go\\src\\ablog\\routers":
+	{
+		"height": 118.0
+	},
+	"output.9o://F:\\Programming\\Projects\\Go\\src\\github.com\\yueliangcao\\ablog":
+	{
+		"height": 296.0
+	},
+	"output.9o://F:\\Programming\\Projects\\Go\\src\\github.com\\yueliangcao\\ablog\\controllers\\admin":
+	{
+		"height": 270.0
+	},
+	"output.9o://F:\\Programming\\Projects\\Go\\src\\github.com\\yueliangcao\\ablog\\models":
 	{
 		"height": 118.0
 	},
@@ -1004,7 +1087,7 @@
 	"project": ".sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1013,12 +1096,8 @@
 		"selected_items":
 		[
 			[
-				"arti",
-				"controllers\\article.go"
-			],
-			[
-				"admin/user.go",
-				"controllers\\admin\\user.go"
+				"a.go",
+				"ablog\\controllers\\article.go"
 			],
 			[
 				"views/inde",
@@ -1055,7 +1134,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 230.0,
+	"side_bar_width": 228.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

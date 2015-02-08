@@ -4,12 +4,27 @@
 	<table class="table table-form">
 		<tbody>
 			<tr>
+				<th></th>
+				<td>
+					{{if .errmsg}}
+					<div class="alert alert-error">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<ul>
+					{{range .errmsg}}
+							<li><span>{{.Key}}</span> <span>{{.Message}}</span></li>						  
+					{{end}}
+					</ul>
+					</div>
+					{{end}}		
+				</td>
+			</tr>
+			<tr>
 				<th width="60">标题</th>
 				<td>
-					<input type="text" name="title" class="span6" />
+					<input type="text" name="Title" class="span6" />
 					<input name="color" value="" type="hidden" />
 					<img src="/static/admin/img/colorpicker.png" id="colorpicker" style="cursor:pointer;margin:0 10px 10px 5px;" />
-					<span><label class="help-inline"><input type="checkbox" value="1" name="istop" /> 置顶文章</label></span>
+					<span><label class="help-inline"><input type="checkbox" value="1" name="Top" /> 置顶文章</label></span>
 				</td>
 			</tr>
 			<tr>
@@ -19,26 +34,16 @@
 			<tr>
 				<th>URL名称</th>
 				<td>
-					<input type="text" name="urlname" class="span3" />
+					<input type="text" name="UrlName" class="span3" />
 					<span>
 					<label class="help-inline" title="独立页面使用http://domain/urlname访问，普通页面使用http://domain/article/urlname访问"><input type="checkbox" name="urltype" value="1" /> 作为独立页面不显示在列表(使用 http://domain/urlname 访问)</label>
 					</span>
 				</td>
 			</tr>
 			<tr>
-				<th>发布时间</th>
-				<td>
-					<div class="input-append date" id="datetimepicker" data-date="{{.posttime}}" data-date-format="yyyy-mm-dd HH:ii:ss">
-					    <input class="span2" name="posttime" size="16" type="text" value="{{.posttime}}">
-					    <span class="add-on"><i class="icon-remove"></i></span>
-					    <span class="add-on"><i class="icon-th"></i></span>
-					</div> 
-            	</td>
-			</tr>
-			<tr>
 				<th>保存到</th>
 				<td>
-					<select name="status">
+					<select name="State">
 						<option value="0">已发布</option>
 						<option value="1">草稿箱</option>
 						<option value="2">回收站</option>
@@ -53,7 +58,7 @@
 					</script>
 					<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
 					<script type="text/javascript" src="/static/ueditor/ueditor.all.min.js"></script>
-					<script type="text/plain" id="content" name="content"></script>
+					<script type="text/plain" id="content" name="Content"></script>
 					<script type="text/javascript" charset="utf-8">
 						var options = {"fileUrl":"/admin/article/upload","filePath":"","imageUrl":"/admin/article/upload","imagePath":"","initialFrameWidth":"90%","initialFrameHeight":"400"};
 						var ue = UE.getEditor("content", options);
@@ -82,11 +87,11 @@
 		$("#colorpicker").colorpicker({
 			fillcolor:true,
 			success:function(o,color){
-				$("input[name='title']").css("color",color);
+				$("input[name='Title']").css("color",color);
 				$("input[name='color']").val(color);
 			},
 			reset:function(o) {
-				$("input[name='title']").css("color","");
+				$("input[name='Title']").css("color","");
 				$("input[name='color']").val("");
 			}
 		});
