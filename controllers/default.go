@@ -13,7 +13,7 @@ type MainController struct {
 func (c *MainController) Get() {
 	var err error
 	c.TplNames = "index.tpl"
-	c.Data["articles"], err = models.GetAllArticle("", "", "", 100, 1)
+	c.Data["articles"], err = models.GetHomeArticle(100, 1)
 	fmt.Print(c.Data["articles"])
 
 	if err != nil {

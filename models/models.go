@@ -2,11 +2,18 @@ package models
 
 import (
 	"database/sql"
-	"fmt"
+	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/yueliangcao/ablog/logs"
+	"strings"
 	"time"
 )
+
+func init() {
+	orm.RegisterDataBase("default", "mysql", "root:!@#$%^&*(0)@tcp(106.187.54.95:3306)/ablog?charset=utf8&parseTime=true&loc=Local")
+	orm.RegisterModelWithPrefix("t_", new(User), new(Article), new(Tag), new(FKArticleTag))
+	orm.Debug = true
+}
 
 const (
 	Publish = iota
@@ -34,12 +41,12 @@ type Article struct {
 	CreateOn time.Time
 	UpdateOn time.Time
 
-	Tags []Tag
+	Tags []Tag `orm:"-"`
 }
 
 //标签
 type Tag struct {
-	Id    int
+	Id    int `orm:"pk"`
 	Name  string
 	Count int
 }
@@ -52,7 +59,7 @@ type FKArticleTag struct {
 }
 
 func openDb() (db *sql.DB, err error) {
-	db, err = sql.Open("mysql", "root:123456@/ablog?charset=utf8&parseTime=true&loc=Local")
+	db, err = sql.Open("mysql", "root:!@#$%^&*(0)@tcp(106.187.54.95:3306)/ablog?charset=utf8&parseTime=true&loc=Local")
 	if err != nil {
 		logs.Log().Warning("OpenDB", err.Error())
 	}
@@ -109,21 +116,45 @@ func UpdateArticle(article *Article) (err error) {
 	return
 }
 func GetAllArticle(title string, writer string, tag string, state int8, psize int, pinx int) (articles []Article, err error) {
-	title = fmt.Sprintf("%%%s%%", title)
-	writer = fmt.Sprintf("%%%s%%", writer)
+	orm := orm.NewOrm()
+	qs := orm.QueryTable("t_article").Filter("state", state)
 
-	var rows *sql.Rows
-	if tag == "" {
-		dbf(func(db *sql.DB) {
-			rows, err = db.Query("select * from t_article where title like ? and writer like ? and state = ? order by create_on desc limit ?,?",
-				title, writer, state, psize*(pinx-1), psize)
-		})
-	} else {
-		dbf(func(db *sql.DB) {
-			rows, err = db.Query("select * from t_article inner join t_tag where title like ? and writer like ? and state = ? order by create_on desc limit ?,?",
-				title, writer, state, psize*(pinx-1), psize)
-		})
+	if title = strings.TrimSpace(title); title != "" {
+		qs = qs.Filter("title__icontains", title)
 	}
+	if writer = strings.TrimSpace(writer); writer != "" {
+		qs = qs.Filter("writer__icontains", writer)
+	}
+
+	_, err = qs.Limit(psize, psize*(pinx-1)).All(&articles)
+	if err != nil {
+		return
+	}
+
+	for i, _ := range articles {
+		v := &articles[i]
+		_, err = orm.Raw(`
+			select t_tag.* 
+				from t_tag 
+				inner join t_pk_article_tag on t_tag.id = t_pk_article_tag.tag_id 
+			where t_pk_article_tag.article_id = ?
+		`, v.Id).QueryRows(&v.Tags)
+
+		if err != nil {
+			return
+		}
+	}
+
+	return
+}
+
+func GetHomeArticle(psize, pinx int) (articles []Article, err error) {
+	var rows *sql.Rows
+
+	dbf(func(db *sql.DB) {
+		rows, err = db.Query("select * from t_article where state = ? order by create_on desc limit ?,?",
+			0 /*已发布的*/, psize*(pinx-1), psize)
+	})
 
 	if err != nil {
 		return nil, err

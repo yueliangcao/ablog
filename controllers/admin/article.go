@@ -49,16 +49,17 @@ func (c *ArticleController) List() {
 
 	switch searchtype {
 	case "title":
-		if list, err = models.GetAllArticle(keyword, "", "", psize, pinx); err != nil {
-			logs.Log().Debug("get list %s", err.Error())
-		}
+		list, err = models.GetAllArticle(keyword, "", "", state, psize, pinx)
 	case "tag":
 	case "writer":
-		if list, err = models.GetAllArticle("", keyword, "", psize, pinx); err != nil {
-			logs.Log().Debug("get list %s", err.Error())
-		}
+		list, err = models.GetAllArticle("", keyword, "", state, psize, pinx)
 	default:
+		list, err = models.GetAllArticle("", keyword, "", state, psize, pinx)
 		searchtype = "title"
+	}
+
+	if err != nil {
+		logs.Log().Debug("get list %s", err.Error())
 	}
 
 	c.Data["state"] = state
