@@ -58,36 +58,27 @@
   </div>
   <div class="page-content">
     <div class="container-fluid">
-    {{range .articles}}    
-      <div class="blog-section">
-        <div class="row">
-          <div class="col-md-10"><h1><a href="/article/{{.Id}}">{{.Title}}</a>
-            <div class="btn-group">
-  <a type="button" class="btn btn-default btn-xs" href="/article/edit/{{.Id}}">编辑</a>
-  <a type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a href="/article/del/{{.Id}}">删除</a></li>
-    <li><a href="/article/edit/{{.Id}}">修改分类</a></li>
-    <li><a href="/article/top/{{.Id}}">置顶</a></li>
-  </ul>
-</div></h1></div>
-          <div class="col-md-2">
-            <div class="meta">
-              <div class="date">2015/10/10</div>
-              <div class="tags">Go</div>
+    <div class="row">
+      <div class="col-xs-12">
+      {{range .articles}}    
+        <div class="blog-section">
+          <div class="row">
+            <div class="col-md-10"><h1 class="title"><a href="/article/{{.Id}}">{{.Title}}</a></h1></div>
+            <div class="col-md-2">
+              <div class="meta">
+                <div class="date">{{.CreateOn.Format "1 月 02 日 · 2006"}}</div>
+                <div class="tags">{{.Tags}}</div>
+              </div>
             </div>
           </div>
+          <p>
+            {{.Content}}
+          </p>
+          <hr>
         </div>
-        <hr>
-        <p>
-          {{.Content}}
-        </p>
-        <hr>
-      </div>
       {{end}}
+      </div>
+    </div>
   </div>
   <div class="modal fade login-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"aria-hidden="true">
     <div class="modal-dialog">

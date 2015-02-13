@@ -1,17 +1,18 @@
 package models
 
 import (
-	"database/sql"
+	"crypto/md5"
+	"errors"
+	"fmt"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/yueliangcao/ablog/logs"
 	"strings"
 	"time"
 )
 
 func init() {
 	orm.RegisterDataBase("default", "mysql", "root:!@#$%^&*(0)@tcp(106.187.54.95:3306)/ablog?charset=utf8&parseTime=true&loc=Local")
-	orm.RegisterModelWithPrefix("t_", new(User), new(Article), new(Tag), new(FKArticleTag))
+	orm.RegisterModelWithPrefix("t_", new(User), new(Article), new(Tag), new(FkArticleTag))
 	orm.Debug = true
 }
 
@@ -23,7 +24,7 @@ const (
 
 //用户
 type User struct {
-	Id  int
+	Id  int `orm:"pk"`
 	Usn string
 	Pwd string
 }
@@ -38,10 +39,13 @@ type Article struct {
 	State    int8
 	UrlName  string
 	Pv       int
+	Tags     string `orm:"size(250)"`
 	CreateOn time.Time
 	UpdateOn time.Time
+}
 
-	Tags []Tag `orm:"-"`
+func (this *Article) TagNames() []string {
+	return strings.Split(strings.TrimRight(this.Tags, ","), ",")
 }
 
 //标签
@@ -52,81 +56,128 @@ type Tag struct {
 }
 
 //文章标签关联
-type FKArticleTag struct {
+type FkArticleTag struct {
 	Id        int
 	ArticleId int
 	TagId     int
 }
 
-func openDb() (db *sql.DB, err error) {
-	db, err = sql.Open("mysql", "root:!@#$%^&*(0)@tcp(106.187.54.95:3306)/ablog?charset=utf8&parseTime=true&loc=Local")
-	if err != nil {
-		logs.Log().Warning("OpenDB", err.Error())
-	}
-	return
+func Md5(buf []byte) string {
+	hash := md5.New()
+	hash.Write(buf)
+	return fmt.Sprintf("%x", hash.Sum(nil))
 }
 
-func dbf(f func(db *sql.DB)) {
-	db, _ := openDb()
-	defer db.Close()
+func GetOneUserByUsn(usn string) (user *User, err error) {
+	o := orm.NewOrm()
 
-	f(db)
-}
+	user = new(User)
+	user.Usn = usn
 
-func GetOneUserByUsn(usn string) (*User, error) {
-	db, err := openDb()
-	defer db.Close()
-	if err != nil {
-		return nil, err
-	}
-
-	rows, err := db.Query("select * from t_user where usn = ? limit 1", usn)
-	if err != nil {
-		return nil, err
-	}
-
-	var user *User = nil
-	if rows.Next() {
-		user = new(User)
-		err = rows.Scan(&user.Id, &user.Usn, &user.Pwd)
-		if err != nil {
-			return nil, err
+	if err = o.Read(user, "usn"); err != nil {
+		if err == orm.ErrNoRows {
+			return nil, nil
 		}
+
+		return nil, err
 	}
 
-	return user, nil
+	return
 }
 
 func AddArticle(article *Article) (err error) {
+	o := orm.NewOrm()
+	if err = o.Begin(); err != nil {
+		return
+	}
+
 	article.CreateOn = time.Now()
 	article.UpdateOn = article.CreateOn
 
-	dbf(func(db *sql.DB) {
-		_, err = db.Exec("insert into t_article(title,content,writer,top,state,url_name,create_on,update_on) values(?,?,?,?,?,?,?,?)",
-			&article.Title, &article.Content, &article.Writer, &article.Top, &article.State, &article.UrlName, &article.CreateOn, &article.UpdateOn)
-	})
+	_, err = o.Insert(article)
 
+	fKArticleTags := make([]FkArticleTag, 0)
+	tagNames := article.TagNames()
+	if len(tagNames) > 10 {
+		o.Rollback()
+		return errors.New("标签数最多10个")
+	}
+	for _, v := range tagNames {
+		if len(v) > 25 {
+			o.Rollback()
+			return errors.New("标签字符数最多25个")
+		}
+
+		tag := &Tag{Name: v}
+		if _, _, err = o.ReadOrCreate(tag, "Name"); err != nil {
+			o.Rollback()
+			return err
+		}
+
+		tag.Count++
+
+		o.Update(tag, "Count")
+		fKArticleTags = append(fKArticleTags, FkArticleTag{ArticleId: article.Id, TagId: tag.Id})
+	}
+	if _, err = o.InsertMulti(len(fKArticleTags), fKArticleTags); err != nil {
+		o.Rollback()
+		return err
+	}
+
+	err = o.Commit()
 	return
 }
 func UpdateArticle(article *Article) (err error) {
-	dbf(func(db *sql.DB) {
-		_, err = db.Exec("update t_article set title = ?,content = ?,writer = ? where id = ?", &article.Title, &article.Content, &article.Writer, &article.Id)
-	})
+	o := orm.NewOrm()
+
+	_, err = o.Update(article)
+
+	return
+}
+func UpdateArticlesState(ids *[]int, state int8) (err error) {
+	orm := orm.NewOrm()
+
+	_, err = orm.Raw(`
+		UPDATE t_article set state = ? 
+		WHERE id in (?)
+	`, state, ids).Exec()
+
+	return
+}
+func DeleteArticles(ids *[]int) (err error) {
+	orm := orm.NewOrm()
+
+	_, err = orm.Raw(`
+		DELETE FROM t_article 
+		WHERE id in (?)
+	`, ids).Exec()
 
 	return
 }
 func GetAllArticle(title string, writer string, tag string, state int8, psize int, pinx int) (articles []Article, err error) {
 	orm := orm.NewOrm()
-	qs := orm.QueryTable("t_article").Filter("state", state)
 
 	if title = strings.TrimSpace(title); title != "" {
-		qs = qs.Filter("title__icontains", title)
-	}
-	if writer = strings.TrimSpace(writer); writer != "" {
-		qs = qs.Filter("writer__icontains", writer)
+		_, err = orm.QueryTable("t_article").Filter("state", state).Filter("title__icontains", title).Limit(psize, psize*(pinx-1)).All(&articles)
+	} else if writer = strings.TrimSpace(writer); writer != "" {
+		_, err = orm.QueryTable("t_article").Filter("state", state).Filter("writer__icontains", writer).Limit(psize, psize*(pinx-1)).All(&articles)
+	} else if tag = strings.TrimSpace(tag); tag != "" {
+		_, err = orm.Raw(`
+			SELECT
+			a.*
+			FROM
+			t_article a
+			INNER JOIN t_pk_article_tag m ON a.id = m.article_id
+			INNER JOIN t_tag t ON m.tag_id = t.id
+			WHERE t.name LIKE ? AND a.state = ?
+			GROUP BY a.id
+			ORDER BY a.create_on DESC
+			LIMIT ? OFFSET ?
+		`, fmt.Sprintf("%%%s%%", tag), state, psize, psize*(pinx-1)).QueryRows(&articles)
+	} else {
+		_, err = orm.QueryTable("t_article").Filter("state", state).Limit(psize, psize*(pinx-1)).All(&articles)
 	}
 
-	_, err = qs.Limit(psize, psize*(pinx-1)).All(&articles)
 	if err != nil {
 		return
 	}
@@ -147,116 +198,58 @@ func GetAllArticle(title string, writer string, tag string, state int8, psize in
 
 	return
 }
-
 func GetHomeArticle(psize, pinx int) (articles []Article, err error) {
-	var rows *sql.Rows
+	o := orm.NewOrm()
 
-	dbf(func(db *sql.DB) {
-		rows, err = db.Query("select * from t_article where state = ? order by create_on desc limit ?,?",
-			0 /*已发布的*/, psize*(pinx-1), psize)
-	})
-
+	_, err = o.QueryTable("t_article").Filter("State", 0 /*已发布的*/).OrderBy("-CreateOn").Limit(psize, psize*(pinx-1)).All(&articles)
 	if err != nil {
-		return nil, err
+		return
 	}
 
-	articles = make([]Article, 0)
-	article := new(Article)
-	for rows.Next() {
-		err = rows.Scan(
-			&article.Id,
-			&article.Title,
-			&article.Content,
-			&article.Writer,
-			&article.Top,
-			&article.State,
-			&article.UrlName,
-			&article.Pv,
-			&article.CreateOn,
-			&article.UpdateOn)
-		if err != nil {
-			return
+	//	for i, _ := range articles {
+	//		v := &articles[i]
+	//		_, err = o.Raw(`
+	//			select t_tag.*
+	//				from t_tag
+	//				inner join t_pk_article_tag on t_tag.id = t_pk_article_tag.tag_id
+	//			where t_pk_article_tag.article_id = ?
+	//		`, v.Id).QueryRows(&v.Tags)
+
+	//		if err != nil {
+	//			return
+	//		}
+	//	}
+
+	return
+}
+func GetOneArticle(id int) (article *Article, err error) {
+	o := orm.NewOrm()
+
+	article = new(Article)
+	article.Id = id
+	article.CreateOn.Format("yyyy/mm/dd")
+	if err = o.Read(article); err != nil {
+		if err == orm.ErrNoRows {
+			return nil, nil
 		}
 
-		var rows1 *sql.Rows
-		dbf(func(db *sql.DB) {
-			rows1, err = db.Query(`
-				select t_tag.* 
-					from t_tag 
-					inner join t_pk_article_tag on t_tag.id = t_pk_article_tag.tag_id 
-				where t_pk_article_tag.article_id = ?
-			`, article.Id)
-		})
-		if err != nil {
-			return
-		}
-
-		tag := new(Tag)
-		for rows1.Next() {
-			err = rows1.Scan(&tag.Id, &tag.Name, &tag.Count)
-			if err != nil {
-				return
-			}
-			article.Tags = append(article.Tags, *tag)
-		}
-
-		articles = append(articles, *article)
+		return nil, err
 	}
 
 	return
 }
+func GetCountByArticle(state int8) (count int64, err error) {
+	o := orm.NewOrm()
 
-func GetOneArticle(id int) (*Article, error) {
-	var rows *sql.Rows
-	var err error
+	count, err = o.QueryTable("t_article").Filter("state", state).Count()
 
-	dbf(func(db *sql.DB) {
-		rows, err = db.Query("select * from t_article where id = ? limit 1", id)
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	var article *Article = nil
-	if rows.Next() {
-		article = new(Article)
-		err = rows.Scan(
-			&article.Id,
-			&article.Title,
-			&article.Content,
-			&article.Writer,
-			&article.Top,
-			&article.State,
-			&article.UrlName,
-			&article.Pv,
-			&article.CreateOn,
-			&article.UpdateOn)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return article, nil
+	return
 }
 
-func GetCountByArticle(state int8) (count int, err error) {
-	var rows *sql.Rows
+func GetAllTag() (tags []Tag, err error) {
+	orm := orm.NewOrm()
 
-	dbf(func(db *sql.DB) {
-		rows, err = db.Query("select count(1) from t_article where state = ?", state)
-	})
+	_, err = orm.QueryTable("t_tag").All(&tags)
 
-	if err != nil {
-		return 0, err
-	}
-
-	if rows.Next() {
-		err = rows.Scan(&count)
-		if err != nil {
-			return 0, err
-		}
-	}
-
-	return count, nil
+	return
 }

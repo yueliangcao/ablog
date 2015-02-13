@@ -1,17 +1,29 @@
 package admin
 
 import (
-	"github.com/astaxie/beego"
-	_ "github.com/yueliangcao/ablog/models"
+	_ "github.com/astaxie/beego"
+	"github.com/yueliangcao/ablog/logs"
+	"github.com/yueliangcao/ablog/models"
 )
 
 type TagController struct {
-	beego.Controller
+	BaseController
 }
 
-func (c *TagController) Index() {
+func (c *TagController) List() {
 	c.Layout = "admin/_layout.html"
-	c.TplNames = "admin/tag_index.html"
+	c.TplNames = "admin/tag_list.html"
+
+	var (
+		list []models.Tag
+	)
+
+	list, err := models.GetAllTag()
+	if err != nil {
+		logs.Log().Debug("getAllTag err %s", err.Error())
+	}
+
+	c.Data["list"] = list
 }
 
 func (c *TagController) Del() {

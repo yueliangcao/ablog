@@ -2,24 +2,20 @@ package admin
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/yueliangcao/ablog/logs"
 	"github.com/yueliangcao/ablog/models"
 )
 
 type HomeController struct {
-	beego.Controller
+	BaseController
 }
 
 func (c *HomeController) Index() {
-	c.Layout = "admin/_layout.html"
 	c.TplNames = "admin/home_index.html"
-
-	if user := c.GetSession("user"); user == nil {
-		c.Redirect("/admin/login", 301)
-	}
 }
 
+//后台登陆
 func (c *HomeController) Login() {
+	c.Layout = ""
 	c.TplNames = "admin/home_login.html"
 
 	if c.Ctx.Request.Method == "GET" {
@@ -27,10 +23,11 @@ func (c *HomeController) Login() {
 	} else {
 		usn := c.GetString("usn")
 		pwd := c.GetString("pwd")
+		remember, err := c.GetBool("remember")
 
 		user, err := models.GetOneUserByUsn(usn)
 		if err != nil {
-			logs.Log().Debug("GetOneUserByUsn", err.Error())
+			beego.Error(err.Error())
 			return
 		}
 
@@ -38,7 +35,12 @@ func (c *HomeController) Login() {
 			c.Data["errmsg"] = "不存在该用户"
 		} else if user.Pwd != pwd {
 			c.Data["errmsg"] = "密码有误"
-		} else {
+		} else { //登陆成功
+			authkey := models.Md5([]byte(c.getClientIp() + "|" + user.Pwd))
+			if remember {
+				c.Ctx.SetCookie("auth", usn+"|"+authkey, 7*86400)
+			}
+
 			c.SetSession("user", user)
 			c.Redirect("/admin", 301)
 		}

@@ -6,5 +6,7 @@ import (
 )
 
 func main() {
+	beego.SetLogFuncCall(true)
 	beego.Run()
+	beego.Debug()
 }

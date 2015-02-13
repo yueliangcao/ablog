@@ -25,6 +25,6 @@ func init() {
 	beego.Router("/admin/user/del", &admin.UserController{}, "*:Del")
 	beego.Router("/admin/user/edit", &admin.UserController{}, "*:Edit")
 
-	beego.Router("/admin/tag", &admin.TagController{}, "*:Index")
+	beego.Router("/admin/tag/list", &admin.TagController{}, "*:List")
 	beego.Router("/admin/tag/del", &admin.TagController{}, "*:Del")
 }

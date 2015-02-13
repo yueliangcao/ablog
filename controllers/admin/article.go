@@ -1,10 +1,11 @@
 package admin
 
 import (
-	_ "github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 	"github.com/yueliangcao/ablog/logs"
 	"github.com/yueliangcao/ablog/models"
+	"strconv"
 )
 
 type ArticleController struct {
@@ -17,8 +18,8 @@ func (c *ArticleController) List() {
 
 	var (
 		state      int8
-		count1     int
-		count2     int
+		count1     int64
+		count2     int64
 		err        error
 		list       []models.Article
 		searchtype string
@@ -41,25 +42,28 @@ func (c *ArticleController) List() {
 	}
 
 	if count1, err = models.GetCountByArticle(1); err != nil {
-		logs.Log().Debug("get count1 %s", err.Error())
+		beego.Error(err.Error())
+		return
 	}
 	if count2, err = models.GetCountByArticle(2); err != nil {
-		logs.Log().Debug("get count2 %s", err.Error())
+		beego.Error(err.Error())
+		return
 	}
 
 	switch searchtype {
 	case "title":
 		list, err = models.GetAllArticle(keyword, "", "", state, psize, pinx)
-	case "tag":
 	case "writer":
 		list, err = models.GetAllArticle("", keyword, "", state, psize, pinx)
+	case "tag":
+		list, err = models.GetAllArticle("", "", keyword, state, psize, pinx)
 	default:
-		list, err = models.GetAllArticle("", keyword, "", state, psize, pinx)
+		list, err = models.GetAllArticle("", "", "", state, psize, pinx)
 		searchtype = "title"
 	}
 
 	if err != nil {
-		logs.Log().Debug("get list %s", err.Error())
+		beego.Error(err.Error())
 	}
 
 	c.Data["state"] = state
@@ -85,6 +89,8 @@ func (c *ArticleController) Add() {
 			return
 		}
 
+		beego.Debug(article.Tags)
+
 		valid.Required(article.Title, "标题").Message("不能为空")
 		valid.Required(article.Content, "正文").Message("不能为空")
 
@@ -104,10 +110,29 @@ func (c *ArticleController) Add() {
 }
 
 func (c *ArticleController) Del() {
+	ids1 := c.GetStrings("ids")
+	ids := make([]int, 0)
 
+	for _, v := range ids1 {
+		if i, _ := strconv.Atoi(v); i > 0 {
+			ids = append(ids, i)
+		}
+	}
+
+	err := models.DeleteArticles(&ids)
+	if err != nil {
+		beego.Error(err.Error())
+		return
+	}
+
+	c.Redirect("/admin/article/list", 301)
 }
 
 func (c *ArticleController) Edit() {
 	c.Layout = "admin/_layout.html"
 	c.TplNames = "admin/article_edit.html"
+}
+
+func (c *ArticleController) UpdateAllState() {
+
 }

@@ -38,7 +38,7 @@
 		<tbody>
 		{{range $k, $v := .list}}
 		<tr>
-			<td><input type="checkbox" name="ids[]" value="{{$v.Id}}" /></td>
+			<td><input type="checkbox" name="ids" value="{{$v.Id}}" /></td>
 			<td>{{$v.Id}}</td>
 			<td class="hl_title">
 				{{if $v.Top}}
@@ -53,7 +53,7 @@
 			<td>{{$v.Pv}}</td>
 			<td class="hl_author">{{$v.Writer}}</td>
 			<td>{{date $v.CreateOn "m月d日 H:i:s"}}</td>
-			<td><a href="/admin/article/edit?id={{$v.Id}}">编辑</a> | <a href="/admin/article/delete?id={{$v.Id}}" onclick="return del_confirm()">删除</a></td>
+			<td><a href="/admin/article/edit?id={{$v.Id}}">编辑</a> | <a href="/admin/article/del?ids={{$v.Id}}" onclick="return del_confirm()">删除</a></td>
 		</tr>
 		{{end}}
 		</tbody>
@@ -62,7 +62,7 @@
 				<td colspan="20">{{/*str2html .pagebar*/}}</td>
 			</tr>
 			<tr>
-				<td width="30"><input type="checkbox" name="all" value="0" onclick="checkall('ids[]', this)" /></td>
+				<td width="30"><input type="checkbox" name="all" value="0" onclick="checkall('ids', this)" /></td>
 				<td colspan="20">
 					<select name="op" id="op">
 					<option value="">批量操作</option>
