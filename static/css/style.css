@@ -1,26 +1,53 @@
+/*全局*/
 body {
   color: #797979;
+  background-color: white;
 }
-
 h1 {
   font-size: 24px;
   margin-top: 0px;
   margin-bottom: 20px;
 }
+
 .page-container {
 }
 .page-sidebar {
-  width: 200px;
+  width: 280px;
   position: fixed;
   min-height: 100%;
-  background-color: rgb(190, 190, 190);
+  background-color: #797979;
 }
+
+/*个性设置*/
+.page-sidebar .settings {
+  margin-top: 60px;
+  margin-left: 30px;
+}
+.page-sidebar .settings img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+.page-sidebar .settings h1 {
+  margin-bottom:0px;
+  color: white;
+}
+.page-sidebar .settings p {
+  line-height: 30px;
+  font-style: italic;
+  color: lightgrey;
+}
+
 .page-content {
-  background-color: white;
-  margin-left: 200px; 
+  margin-left: 280px; 
+  padding: 0 25px;
 }
 .nav-blog {
-  margin-top: 200px;
+  margin-top: 10px;
 }
 .nav-blog >li+li {
   margin-top: 0;
@@ -29,6 +56,7 @@ h1 {
   color: white;
   border-top-color: white;
   border-width: 1px;
+  padding-left: 30px;
 }
 .nav-blog > li.active > a,.nav-blog > li > a:hover{
   background-color: white;
@@ -41,50 +69,7 @@ h1 {
   padding-top: 30px;
   padding-bottom: 30px;
 } 
-.blog-section .title > a {
-  color: #797979;
-}
-.blog-section .title > a:hover {
-  text-decoration: none;
-  color: #415280;
-}
-/*login-form,login-modal*/
-.form-login {
-  max-width: 330px;
-}
-.form-login .form-login-heading,
-.form-login .checkbox
-{
-  margin-bottom: 10px;
-}
-.form-login .checkbox {
-  font-weight: normal;
-}
-.form-login input.usn {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-login input.pwd {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-.form-login .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-login .form-control:focus {
-  z-index: 2;
-}
-.login-modal .modal-dialog {
-  max-width: 330px;
-}
+
 .article {
   border-bottom: 1px solid #ddd;
 }
@@ -97,4 +82,28 @@ h1 {
 .footer {
   padding: 15px 0;
   text-align: center;
+}
+
+/*归档*/
+.archives-section > .year {
+  padding-top: 10px;
+  display: block;
+  width: 200px;
+  position:absolute;
+  border-top: 1px solid #ddd;
+}
+.archives-section > .article-section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 200px;
+  border-top: 1px solid #ddd;
+}
+
+
+.blog-section .title > a,.archives-section .title > a, .meta .tags > a {
+  color: #797979;
+}
+.blog-section .title > a:hover,.archives-section .title > a:hover, .meta .tags > a:hover {
+  text-decoration: none;
+  color: #415280;
 }

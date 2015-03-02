@@ -28,7 +28,7 @@
 				<th width="30"><input type="checkbox" name="all" value="0" onclick="checkall('ids[]', this)" /></th>
 				<th width="50">ID</th>
 				<th>标题</th>
-				<th width="150">类别</th>
+				<th width="150">标签</th>
 				<th width="60">点击量</th>
 				<th width="60">发布人</th>
 				<th width="120">发布时间</th>
@@ -36,24 +36,24 @@
 			</tr>
 		</thead>
 		<tbody>
-		{{range $k, $v := .list}}
+		{{range .list}}
 		<tr>
-			<td><input type="checkbox" name="ids" value="{{$v.Id}}" /></td>
-			<td>{{$v.Id}}</td>
+			<td><input type="checkbox" name="ids" value="{{.Id}}" /></td>
+			<td>{{.Id}}</td>
 			<td class="hl_title">
-				{{if $v.Top}}
+				{{if .Top}}
 				<i class="icon-arrow-up" title="置顶"> </i>
 				{{end}}
-				<a href="/article/{{$v.Id}}" target="_blank">{{$v.Title}}</a>
-				{{if $v.UrlName}}
+				<a href="/article/{{.Id}}" target="_blank">{{.Title}}</a>
+				{{if .UrlName}}
 				<span class="label label-important">页面</span>
 				{{end}}
 			</td>
-			<td class="hl_tag">{{range $k1,$v1 := $v.Tags}} {{$v1.Name}} {{end}}</td>
-			<td>{{$v.Pv}}</td>
-			<td class="hl_author">{{$v.Writer}}</td>
-			<td>{{date $v.CreateOn "m月d日 H:i:s"}}</td>
-			<td><a href="/admin/article/edit?id={{$v.Id}}">编辑</a> | <a href="/admin/article/del?ids={{$v.Id}}" onclick="return del_confirm()">删除</a></td>
+			<td class="hl_tag">{{range $k,$v := .TagNames}}<span {{if eq $k 0}}style="display:none"{{end}}>,</span>{{.}}{{end}}</td>
+			<td>{{.Pv}}</td>
+			<td class="hl_author">{{.Writer}}</td>
+			<td>{{date .CreateOn "m月d日 H:i:s"}}</td>
+			<td><a href="/admin/article/edit?id={{.Id}}">编辑</a> | <a href="/admin/article/del?ids={{.Id}}" onclick="return del_confirm()">删除</a></td>
 		</tr>
 		{{end}}
 		</tbody>

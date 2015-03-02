@@ -3,7 +3,6 @@ package admin
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
-	"github.com/yueliangcao/ablog/logs"
 	"github.com/yueliangcao/ablog/models"
 	"strconv"
 )
@@ -21,7 +20,7 @@ func (c *ArticleController) List() {
 		count1     int64
 		count2     int64
 		err        error
-		list       []models.Article
+		list       []*models.Article
 		searchtype string
 		keyword    string
 		psize      int
@@ -75,6 +74,8 @@ func (c *ArticleController) List() {
 }
 
 func (c *ArticleController) Add() {
+	var err error
+
 	c.Layout = "admin/_layout.html"
 	c.TplNames = "admin/article_add.html"
 
@@ -84,7 +85,7 @@ func (c *ArticleController) Add() {
 		valid := validation.Validation{}
 
 		var article = new(models.Article)
-		err := c.ParseForm(article)
+		err = c.ParseForm(article)
 		if err != nil {
 			return
 		}
@@ -95,8 +96,8 @@ func (c *ArticleController) Add() {
 		valid.Required(article.Content, "正文").Message("不能为空")
 
 		if valid.HasErrors() {
-			for _, err := range valid.Errors {
-				logs.Log().Debug("key=%s,msg=%s", err.Key, err.Message)
+			for _, err1 := range valid.Errors {
+				beego.Debug("key=%s,msg=%s", err1.Key, err1.Message)
 			}
 
 			c.Data["errmsg"] = valid.Errors
@@ -105,7 +106,10 @@ func (c *ArticleController) Add() {
 
 		article.Writer = c.User.Usn
 
-		models.AddArticle(article)
+		if err = models.AddArticle(article); err != nil {
+			beego.Warning(err.Error())
+			return
+		}
 	}
 }
 

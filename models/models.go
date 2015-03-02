@@ -45,7 +45,12 @@ type Article struct {
 }
 
 func (this *Article) TagNames() []string {
-	return strings.Split(strings.TrimRight(this.Tags, ","), ",")
+	this.Tags = strings.TrimSpace(this.Tags)
+	if this.Tags == "" {
+		return make([]string, 0)
+	}
+
+	return strings.Split(this.Tags, ",")
 }
 
 //标签
@@ -109,19 +114,27 @@ func AddArticle(article *Article) (err error) {
 		}
 
 		tag := &Tag{Name: v}
-		if _, _, err = o.ReadOrCreate(tag, "Name"); err != nil {
+		var id int64
+		if _, id, err = o.ReadOrCreate(tag, "Name"); err != nil {
 			o.Rollback()
 			return err
 		}
 
+		tag.Id = int(id)
 		tag.Count++
 
-		o.Update(tag, "Count")
+		if _, err = o.Update(tag, "Count"); err != nil {
+			o.Rollback()
+			return err
+		}
 		fKArticleTags = append(fKArticleTags, FkArticleTag{ArticleId: article.Id, TagId: tag.Id})
 	}
-	if _, err = o.InsertMulti(len(fKArticleTags), fKArticleTags); err != nil {
-		o.Rollback()
-		return err
+
+	if len(fKArticleTags) > 0 {
+		if _, err = o.InsertMulti(len(fKArticleTags), fKArticleTags); err != nil {
+			o.Rollback()
+			return err
+		}
 	}
 
 	err = o.Commit()
@@ -145,16 +158,57 @@ func UpdateArticlesState(ids *[]int, state int8) (err error) {
 	return
 }
 func DeleteArticles(ids *[]int) (err error) {
-	orm := orm.NewOrm()
+	o := orm.NewOrm()
 
-	_, err = orm.Raw(`
-		DELETE FROM t_article 
-		WHERE id in (?)
+	if err = o.Begin(); err != nil {
+		return
+	}
+
+	//文章标签 count - 1
+	_, err = o.Raw(`
+		UPDATE t_tag AS t 
+			INNER JOIN t_fk_article_tag AS fk ON fk.tag_id = t.id
+			INNER JOIN t_article AS a ON a.id = fk.article_id
+		SET count = count-1
+		WHERE a.id IN (?) 
 	`, ids).Exec()
+	if err != nil {
+		o.Rollback()
+		return
+	}
+
+	//删除count数0的标签
+	_, err = o.Raw(`
+		DELETE FROM t_tag
+		WHERE count = 0 
+	`).Exec()
+	if err != nil {
+		o.Rollback()
+		return
+	}
+
+	//删除文章和标签关联
+	_, err = o.Raw(`
+		DELETE 
+			t_article, 
+			t_fk_article_tag 
+		FROM t_article
+			INNER JOIN t_fk_article_tag ON t_fk_article_tag.article_id = t_article.id
+		WHERE t_article.id IN (?)
+	`, ids).Exec()
+	if err != nil {
+		o.Rollback()
+		return
+	}
+
+	if err = o.Commit(); err != nil {
+		o.Rollback()
+		return
+	}
 
 	return
 }
-func GetAllArticle(title string, writer string, tag string, state int8, psize int, pinx int) (articles []Article, err error) {
+func GetAllArticle(title string, writer string, tag string, state int8, psize int, pinx int) (articles []*Article, err error) {
 	orm := orm.NewOrm()
 
 	if title = strings.TrimSpace(title); title != "" {
@@ -178,47 +232,12 @@ func GetAllArticle(title string, writer string, tag string, state int8, psize in
 		_, err = orm.QueryTable("t_article").Filter("state", state).Limit(psize, psize*(pinx-1)).All(&articles)
 	}
 
-	if err != nil {
-		return
-	}
-
-	for i, _ := range articles {
-		v := &articles[i]
-		_, err = orm.Raw(`
-			select t_tag.* 
-				from t_tag 
-				inner join t_pk_article_tag on t_tag.id = t_pk_article_tag.tag_id 
-			where t_pk_article_tag.article_id = ?
-		`, v.Id).QueryRows(&v.Tags)
-
-		if err != nil {
-			return
-		}
-	}
-
 	return
 }
 func GetHomeArticle(psize, pinx int) (articles []Article, err error) {
 	o := orm.NewOrm()
 
 	_, err = o.QueryTable("t_article").Filter("State", 0 /*已发布的*/).OrderBy("-CreateOn").Limit(psize, psize*(pinx-1)).All(&articles)
-	if err != nil {
-		return
-	}
-
-	//	for i, _ := range articles {
-	//		v := &articles[i]
-	//		_, err = o.Raw(`
-	//			select t_tag.*
-	//				from t_tag
-	//				inner join t_pk_article_tag on t_tag.id = t_pk_article_tag.tag_id
-	//			where t_pk_article_tag.article_id = ?
-	//		`, v.Id).QueryRows(&v.Tags)
-
-	//		if err != nil {
-	//			return
-	//		}
-	//	}
 
 	return
 }
@@ -227,7 +246,7 @@ func GetOneArticle(id int) (article *Article, err error) {
 
 	article = new(Article)
 	article.Id = id
-	article.CreateOn.Format("yyyy/mm/dd")
+
 	if err = o.Read(article); err != nil {
 		if err == orm.ErrNoRows {
 			return nil, nil
@@ -238,10 +257,79 @@ func GetOneArticle(id int) (article *Article, err error) {
 
 	return
 }
+func GetArticlesByTag(tag string) (article []Article, err error) {
+	o := orm.NewOrm()
+
+	_, err = o.Raw(`
+		SELECT t_article.*
+		FROM t_article
+		INNER JOIN t_fk_article_tag ON t_fk_article_tag.article_id = t_article.id
+		INNER JOIN t_tag ON t_tag.id = t_fk_article_tag.tag_id
+		WHERE t_article.state = 0 AND t_tag.name = ?
+		ORDER BY t_article.update_on DESC
+	`, tag).QueryRows(&article)
+
+	return
+}
 func GetCountByArticle(state int8) (count int64, err error) {
 	o := orm.NewOrm()
 
 	count, err = o.QueryTable("t_article").Filter("state", state).Count()
+
+	return
+}
+
+//文章PV加一
+func IncrArticlePv(id int) (err error) {
+	o := orm.NewOrm()
+
+	_, err = o.QueryTable("t_article").Filter("id", id).Update(orm.Params{"pv": orm.ColValue(orm.Col_Add, 1)})
+
+	return
+}
+
+//获取文章归档
+func GetArticleArchives(tag string) (rst map[string][]*Article, years []string, err error) {
+	o := orm.NewOrm()
+
+	rst = make(map[string][]*Article)
+	years = make([]string, 0)
+	articles := make([]*Article, 0)
+
+	tag = strings.TrimSpace(tag)
+
+	if tag == "" {
+		_, err = o.QueryTable("t_article").Filter("state", 0).OrderBy("-create_on").All(&articles, "id", "title", "tags", "create_on")
+	} else {
+		_, err = o.Raw(`
+			SELECT 
+				a.id,
+				a.title,
+				a.tags,
+				a.create_on
+			FROM t_article AS a 
+				INNER JOIN t_fk_article_tag AS fk ON fk.article_id = a.id
+				INNER JOIN t_tag AS t ON t.id = fk.tag_id
+			WHERE 
+				a.state = 0
+				AND t.name = ?
+			ORDER BY create_on DESC
+		`, tag).QueryRows(&articles)
+	}
+
+	if err != nil {
+		return
+	}
+
+	for _, v := range articles {
+		year := v.CreateOn.Format("2006")
+		if _, ok := rst[year]; !ok {
+			rst[year] = make([]*Article, 0)
+			years = append(years, year)
+		}
+
+		rst[year] = append(rst[year], v)
+	}
 
 	return
 }
